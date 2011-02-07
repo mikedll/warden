@@ -267,7 +267,7 @@ module Warden
 
       # Look for an existing user in the session for this scope.
       # If there was no user in the session. See if we can get one from the request.
-      return user, opts if user = user(scope)
+      return user, opts if (!opts[:ignore_current_resource] && (user = user(scope)))
       _run_strategies_for(scope, args)
 
       if winning_strategy && winning_strategy.user
